@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更好的动态光波原生特效基于原生cesium</title>
+    <link rel="stylesheet" href="lib/Build/Cesium/Widgets/widgets.css">
+    <script src="lib/Build/Cesium/Cesium.js"></script>
+    <style>
+        html,body,#cesiumContainer{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script src="DynamicWallMaterialProperty.js"></script>
+<!--<script>-->
+<!--    const viewer = new Cesium.Viewer('cesiumContainer', {-->
+<!--        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({-->
+<!--            url: "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"-->
+<!--        })-->
+<!--    });-->
+<!--    viewer.scene.fxaa = true;-->
+<!--    viewer.scene.postProcessStages.fxaa.enabled = true;-->
+
+<!--    let uniforms = {-->
+<!--        u_texture: {-->
+<!--            value: new Cesium.TextureUniform({-->
+<!--                url: './buildings.jpg'-->
+<!--            }),-->
+<!--            type: Cesium.UniformType.SAMPLER_2D-->
+<!--        },-->
+<!--        T_time: {-->
+<!--            value: 0,-->
+<!--            type: Cesium.UniformType.FLOAT-->
+<!--        }-->
+<!--    }-->
+<!--    const createBuildingShader = () => {-->
+<!--        return new Cesium.CustomShader({-->
+<!--            lightingModel: Cesium.LightingModel.UNLIT,-->
+<!--            varyings: {-->
+<!--                v_normalMC: Cesium.VaryingType.VEC3-->
+<!--            },-->
+<!--            uniforms: uniforms,-->
+<!--            vertexShaderText: /* glsl */ `-->
+<!--          void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput) {-->
+<!--            v_normalMC = vsInput.attributes.normalMC;-->
+<!--          }`,-->
+<!--            fragmentShaderText: /* glsl */ `-->
+<!--          void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material) {-->
+<!--            vec3 positionMC = fsInput.attributes.positionMC;-->
+<!--            float width = 300.0;-->
+<!--            float height = 300.0;-->
+<!--            if (v_normalMC.z > 0.95) {-->
+<!--              material.diffuse = vec3(0.079, 0.107, 0.111);-->
+<!--              return;-->
+<!--            } else {-->
+<!--              float textureX =mod(200.0, width) / width;-->
+<!--              float textureY = mod(positionMC.z, height) / height;-->
+<!--              vec3 rgb = texture2D(u_texture, vec2(textureX, textureY-T_time)).rgb;-->
+<!--              gl_FragColor = vec4(0.2,  0.5, 1.0, 1.0);-->
+<!--              gl_FragColor *= vec4(vec3((positionMC.z + 40.0) / 30.0,0.3,0.8), 1.0);-->
+<!--              rgb = mix(gl_FragColor.rgb,rgb,0.5);-->
+<!--              material.diffuse = rgb;-->
+<!--              return;-->
+<!--            }-->
+<!--          }`-->
+<!--        })-->
+<!--    }-->
+<!--    let tileset = new Cesium.Cesium3DTileset({-->
+<!--        url:'http://58.34.121.26:9000/model/9615d290076411ed8df665218c4f8e7b/tileset.json',-->
+<!--        showOutline: false,-->
+<!--        customShader: createBuildingShader(),-->
+<!--        enableModelExperimental: true,-->
+<!--        style: new Cesium.Cesium3DTileStyle({-->
+<!--            color: 'vec4(1.0, 1.0, 1.0, 1.0)',-->
+<!--            show: {-->
+<!--                conditions: [-->
+<!--                    [-->
+<!--                        '${height} === undefined || ${height} === null || isNaN(${height}) ',-->
+<!--                        'false'-->
+<!--                    ]-->
+<!--                ]-->
+<!--            }-->
+<!--        })-->
+<!--    })-->
+<!--    const buildingTileset = viewer.scene.primitives.add(tileset);-->
+<!--    viewer.flyTo(tileset);-->
+<!--    render()-->
+
+<!--    function render() {-->
+<!--        requestAnimationFrame(render)-->
+<!--        uniforms.T_time.value += 0.005-->
+<!--    }-->
+<!--</script>-->
+<script src="index.js"></script>
+</body>
+</html>
