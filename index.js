@@ -76,7 +76,7 @@ let tileset = viewer.scene.primitives.add(
         customShader: createBuildingShader(),
         showOutline: false,
         enableModelExperimental: true,
-        url:'http://localhost/gl/716/tileset.json'
+        url:'http://localhost/test/tileset.json'
     })
 )
 
