@@ -1,4 +1,4 @@
-const CESIUMTOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NmU5MTVjNi00YmIwLTRhZjktOTcxYi1hNjZlMjgzNThjODAiLCJpZCI6MTkxODksImlhdCI6MTYxNTYxOTM0N30.dODi7e3idxhXoHirMyZofpFBEU1-A3rOyPwgz4aU4UM';
+const CESIUMTOKEN = 'your token';
 
 let viewer = new Cesium.Viewer('cesiumContainer',{
     animation: false,
@@ -83,11 +83,6 @@ let tileset = viewer.scene.primitives.add(
 tileset.style=new Cesium.Cesium3DTileStyle({
     color:{
         conditions:[
-            // ['${height}>20','rgba(0,255,255,0.8)'],
-            // ['${height} >= 15', 'rgba(64, 244,208,0.8)'],
-            // ['${height} >= 10', 'rgba(127, 255, 212,0.8)'],
-            // ['${height} >= 6', 'rgba(176, 224, 230,.8)'],
-            // ['${height} >= 2', 'rgba(135, 206, 235,0.8)'],
             ['true', "color('cyan')"]
         ]
     }
@@ -101,60 +96,6 @@ function render() {
 }
 //以上 自动闪烁炫酷特效 cesium1.87以上新增
 
-// let promise = new Cesium.GeoJsonDataSource.load('buildings.geojson');
-// promise.then((datasource) => {
-//     // viewer.dataSources.add(datasource);
-//     const entities = datasource.entities.values;
-//     for (let index = 0; index < entities.length; index++) {
-//         const entity = entities[index];
-//         // entity.polygon.heightReference = Cesium.HeightReference.RELATIVE_TO_GROUND;
-//         // entity.polygon.height = 0; // 距地高度0米
-//         // entity.polygon.extrudedHeightReference = Cesium.HeightReference.RELATIVE_TO_GROUND;
-//         // entity.polygon.extrudedHeight = entity.properties["height"];
-//         // //随机颜色
-//         // entity.polygon.material = new Cesium.Color(0,0,.5);
-//         // entity.polygon.outline = false;
-//
-//         let potArray = [];//动态轮廓矢量面集合
-//         let maxheight = 1;//当高度为0的时候cesium会报错 所以需要过滤 高度。geojson中有几个面的高度字段为0
-//         let maxheights = [];//动态轮廓矢量面高度集合
-//         let minheights = [];//动态轮廓矢量面底部高度集合
-//         //遍历上方geojson产生的实体面 得到需要的格式进行动态轮廓制作
-//         for (let item of entity.polygon.hierarchy.getValue().positions){
-//             let xyz_Car3 = new Cesium.Cartesian3(item.x,item.y,item.z);//实例化c3坐标
-//             let xyz_Carto = viewer.scene.globe.ellipsoid.cartesianToCartographic(xyz_Car3);//c3转弧度
-//             let xyz_lat = Cesium.Math.toDegrees(xyz_Carto.latitude);//弧度转纬度
-//             let xyz_lng = Cesium.Math.toDegrees(xyz_Carto.longitude);//弧度转经度
-//             potArray.push(xyz_lng);
-//             potArray.push(xyz_lat);
-//             if (entity.properties["height"]._value !== 0){
-//                 maxheight = entity.properties["height"]._value;
-//             }
-//             potArray.push(maxheight);
-//             maxheights.push(maxheight+1);
-//             minheights.push(0);
-//         }
-//         let fenceEntity = viewer.entities.add({
-//             wall: {
-//                 positions: new Cesium.Cartesian3.fromDegreesArrayHeights(potArray),
-//                 minimumHeights: minheights,
-//                 maximumHeights: maxheights,
-//                 //特效在DynamicWallMaterialProperty.js中的 94 行 source中 那边写了注释
-//                 /*
-//                 * 两种效果
-//                 * 1.trailImage为bluewall.png时 DynamicWallMaterialProperty.js 94行 source中freely为vertical
-//                 * 2.trailImage为redwall.png时 DynamicWallMaterialProperty.js 94行 source中freely为standard
-//                 * */
-//                 material: new Cesium.DynamicWallMaterialProperty({
-//                     trailImage: './bluewall.png',
-//                     color: Cesium.Color.BLUE,
-//                     duration: 1500
-//                 })
-//             }
-//         });
-//
-//     }
-// })
 let minR=1;//最小半径
 let maxR = 800;// 最大半径
 let deviationR = 1; // 每次增加的大小
@@ -190,7 +131,7 @@ let entitys = viewer.entities.add({
 
 //精准定位
 viewer.scene.camera.setView({
-    destination: Cesium.Cartesian3.fromDegrees(119.59853,34.56610,500),
+    destination: Cesium.Cartesian3.fromDegrees(121,29.56610,500),
     orientation: {
         heading: 1.555585,
         pitch: -0.464817,
